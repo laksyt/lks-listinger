@@ -2,10 +2,11 @@
 
 namespace App\Commands;
 
+use App\Commands\Base\CountingCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
 
-class CountByVendorId extends Command
+class CountByVendorId extends CountingCommand
 {
     /**
      * The signature of the command.
@@ -24,21 +25,10 @@ class CountByVendorId extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {
-        //
-    }
-
-    /**
-     * Define the command's schedule.
-     *
-     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
-     * @return void
-     */
-    public function schedule(Schedule $schedule): void
-    {
-        // $schedule->command(static::class)->everyMinute();
+        $this->info(2);
     }
 }
