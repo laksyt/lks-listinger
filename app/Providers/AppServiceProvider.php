@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\Api\ListingLoader;
+use App\Services\HttpListingLoader;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +15,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app->singleton(
+            ListingLoader::class,
+            HttpListingLoader::class
+        );
     }
 
     /**

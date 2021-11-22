@@ -4,6 +4,7 @@
 namespace App\Models\Api;
 
 
+use Closure;
 use Iterator;
 
 /**
@@ -14,4 +15,6 @@ interface Listing {
     public function get(int $index): Offer;
 
     public function getIterator(): Iterator;
+
+    public function countMatching(Closure $predicate): int;
 }

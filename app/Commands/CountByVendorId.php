@@ -3,6 +3,7 @@
 namespace App\Commands;
 
 use App\Commands\Base\CountingCommand;
+use App\Models\Api\Offer;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
 
@@ -29,6 +30,10 @@ class CountByVendorId extends CountingCommand
      */
     public function handle()
     {
-        $this->info(2);
+        $this->info(
+            $this->listingLoader->load($this->endpointUrl)->countMatching(function (Offer $offer) {
+                return $offer->getVendorId() == $this->argument('vendor_id');
+            })
+        );
     }
 }

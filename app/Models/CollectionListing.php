@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Models\Api\Offer;
 use Brick\Math\BigDecimal;
+use Closure;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Collection;
 use Iterator;
@@ -39,5 +40,10 @@ class CollectionListing implements Api\Listing
     public function getIterator(): Iterator
     {
         return $this->collection->getIterator();
+    }
+
+    public function countMatching(Closure $predicate): int
+    {
+        return $this->collection->filter($predicate)->count();
     }
 }

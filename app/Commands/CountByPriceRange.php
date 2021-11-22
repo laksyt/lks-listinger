@@ -3,6 +3,8 @@
 namespace App\Commands;
 
 use App\Commands\Base\CountingCommand;
+use App\Models\Api\Offer;
+use App\Services\HttpListingLoader;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
 
@@ -29,6 +31,11 @@ class CountByPriceRange extends CountingCommand
      */
     public function handle()
     {
-        $this->info(2);
+        $this->info(
+            $this->listingLoader->load($this->endpointUrl)->countMatching(function (Offer $offer) {
+                return ($offer->getPrice()->compareTo($this->argument('price_from')) >= 0)
+                    && ($offer->getPrice()->compareTo($this->argument('price_to')) <= 0);
+            })
+        );
     }
 }
